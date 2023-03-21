@@ -10,4 +10,6 @@
     <color name="light_gray">#d9d9d9</color>
     <color name="voilet">#5e17be</color>
     <color name="potli">#1b195b</color>
+    <color name="purple_shade1">#6570B4</color>
+    <color name="update_bal_container">#d4f3fc</color>
 </resources>

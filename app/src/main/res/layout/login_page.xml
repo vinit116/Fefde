@@ -61,7 +61,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:srcCompat="@drawable/rounded_square" />
+        app:srcCompat="@drawable/top_corners_rounded_rect" />
 
     <TextView
         android:layout_width="wrap_content"
