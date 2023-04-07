@@ -1,4 +1,4 @@
-package club.potli.database
+package club.potli.data
 
 import com.mongodb.MongoClient
 import com.mongodb.MongoClientURI
