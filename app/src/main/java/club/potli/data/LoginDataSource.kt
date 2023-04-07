@@ -6,13 +6,13 @@ import com.mongodb.client.model.Filters.eq
 import java.io.IOException
 
 class LoginDataSource {
-    private val mongoClient = MongoClients.create("<mongodb-connection-uri>")
+    private val mongoClient = MongoClients.create("mongodb+srv://${System.getenv("MONGO_USERNAME")}:${System.getenv("MONGO_PASSWORD")}@<cluster-address>/${MyMongoDBClass.DATABASE_NAME}?retryWrites=true&w=majority")
 
     fun login(username: String, password: String): Result<LoggedInUser> {
         try {
             // Search
-            val database = mongoClient.getDatabase("<database-name>")
-            val usersCollection = database.getCollection("<collection-name>")
+            val database = mongoClient.getDatabase("UserData")
+            val usersCollection = database.getCollection("Username")
             val user = usersCollection.find(eq("username", username)).first()
 
             // Check if user exists and password is correct

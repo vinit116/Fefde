@@ -6,7 +6,7 @@ import com.mongodb.client.MongoDatabase
 import java.lang.System.getenv
 
 object MyMongoDBClass {
-    private const val DATABASE_NAME = "UserData"
+    const val DATABASE_NAME = "UserData"
     private val CONNECTION_URI = "mongodb+srv://${getenv("MONGO_USERNAME")}:${getenv("MONGO_PASSWORD")}@<cluster-address>/$DATABASE_NAME?retryWrites=true&w=majority"
 
     @JvmStatic
