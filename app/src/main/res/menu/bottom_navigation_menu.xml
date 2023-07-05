@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:title="Home"
+        android:icon="@drawable/potli_home_icon"/>
+    <item
+        android:id="@+id/navigation_rewards"
+        android:title="Rewards"
+        android:icon="@drawable/potli_rewards_icon"/>
+    <item
+        android:id="@+id/navigation_add_potli"
+        android:title="Add Potli"
+        android:icon="@drawable/potli_add_potli_icon"/>
+    <item
+        android:id="@+id/navigation_profile"
+        android:title="Profile"
+        android:icon="@drawable/baseline_person_24"/>
+</menu>
