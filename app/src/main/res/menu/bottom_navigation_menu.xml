@@ -2,7 +2,7 @@
     <item
         android:id="@+id/navigation_home"
         android:title="Home"
-        android:icon="@drawable/potli_home_icon"/>
+        android:icon="@drawable/home_icon"/>
     <item
         android:id="@+id/navigation_rewards"
         android:title="Rewards"
@@ -12,7 +12,7 @@
         android:title="Add Potli"
         android:icon="@drawable/potli_add_potli_icon"/>
     <item
-        android:id="@+id/navigation_profile"
-        android:title="Profile"
-        android:icon="@drawable/baseline_person_24"/>
+        android:id="@+id/navigation_contact_us"
+        android:title="Contact Us"
+        android:icon="@drawable/contact_us_icon"/>
 </menu>
