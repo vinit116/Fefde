@@ -1,0 +1,8 @@
+{
+    "properties": {
+        "_id": {
+            "bsonType": "string"
+        }
+    },
+    "title": "Email Schema"
+}
