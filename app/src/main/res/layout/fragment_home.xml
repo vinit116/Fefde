@@ -41,9 +41,8 @@
         android:id="@+id/profile_photo_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/Welcome_back"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="200dp">
+        android:layout_marginStart="340dp">
 
         <ImageView
             android:id="@+id/profile_image"
@@ -143,17 +142,24 @@
             android:layout_height="70dp"
             android:background="@drawable/update_balance_button" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="Update Balance"
-            android:textSize="18sp"
-            android:fontFamily="sans-serif-medium"
-            android:layout_gravity="center"
-            android:textStyle="bold"/>
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:text="Update Balance"-->
+<!--            android:textSize="18sp"-->
+<!--            android:fontFamily="sans-serif-medium"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:textStyle="bold"/>-->
 
     </FrameLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="430dp"
+        android:background="@drawable/potli_bar"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
 
     <ImageView
         android:layout_width="match_parent"

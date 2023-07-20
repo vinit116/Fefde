@@ -87,6 +87,7 @@
                     android:background="@drawable/rounded_rect"/>
 
                 <EditText
+                    android:id="@+id/user_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
@@ -115,6 +116,7 @@
                     android:background="@drawable/rounded_rect"/>
 
                 <EditText
+                    android:id="@+id/user_email"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
@@ -144,6 +146,7 @@
                     android:background="@drawable/rounded_rect"/>
 
                 <EditText
+                    android:id="@+id/user_password"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
@@ -187,6 +190,7 @@
                 android:layout_marginTop="20dp">
 
                 <ImageButton
+                    android:id="@+id/signUp"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
                     android:background="@drawable/rounded_button" />
