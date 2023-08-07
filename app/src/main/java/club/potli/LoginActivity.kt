@@ -1,75 +1,74 @@
 package club.potli
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import club.potli.data.model.User
+import club.potli.util.Constants.APP_ID
 import com.google.android.material.textfield.TextInputEditText
-import io.realm.kotlin.Realm
 import io.realm.kotlin.mongodb.App
-import io.realm.kotlin.BaseRealm
-import io.realm.kotlin.RealmConfiguration
-import io.realm.kotlin.mongodb.sync.SyncConfiguration
+import io.realm.kotlin.mongodb.Credentials
 import kotlinx.coroutines.*
 
 class LoginActivity : AppCompatActivity() {
-
-    val app : App = App.create("potli-hlxas")
+    private val app = App.create(APP_ID)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_page)
 
-        val config = RealmConfiguration.Builder(schema = setOf(User :: class))
-            .build()
+        val loginButton = findViewById<ImageButton>(R.id.login_button)
 
-        val createNewAccount = findViewById<TextView>(R.id.create_new_acc)
-        createNewAccount.setOnClickListener{
-            setContentView(R.layout.create_account)
+        loginButton.setOnClickListener {
+            val emailID = findViewById<EditText>(R.id.emailId).text.toString()
+            val password = findViewById<TextInputEditText>(R.id.password_text).text.toString()
+            if (emailID.isNotBlank() && password.isNotBlank()) {
+                val credentials = Credentials.emailPassword(emailID, password)
 
-            val logInHere = findViewById<TextView>(R.id.create_acc_log_in_here)
-            logInHere.setOnClickListener{
-                setContentView(R.layout.login_page)
-            }
-
-            val userEmail = findViewById<EditText>(R.id.user_email).text.toString()
-            val userPassword = findViewById<EditText>(R.id.user_password).text.toString()
-            val signUp = findViewById<ImageButton>(R.id.signUp)
-
-            if (userEmail.isNotEmpty() && userPassword.isNotEmpty()) {
-                signUp.setOnClickListener {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        app.emailPasswordAuth.registerUser(userEmail, userPassword)
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val user = app.login(credentials)
+                        Log.v("User", "Logged in Successfully")
+                        withContext(Dispatchers.Main){
+                            startHomeActivity()
+                        }
+                    } catch (e: Exception) {
+                        Log.e("User", "Login failed: ${e.message}")
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                applicationContext,
+                                "Email or password is incorrect. Please try again.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
                 }
             }
-        }
-
-        val emailEditText = findViewById<EditText>(R.id.emailId)
-//        val passwordTextInputEditText = findViewById<TextInputEditText>(R.id.password_text)
-
-
-        emailEditText.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                if (emailEditText.text.isNotEmpty()) {
-                    emailEditText.hint = ""
-                }
-            } else {
-                if (emailEditText.text.isEmpty()) {
-                    emailEditText.hint= "Enter your Email Address here"
-                }
+            else {
+                Toast.makeText(
+                    applicationContext,
+                    "Please enter Email/Password",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
+    }
 
-        val loginButton = findViewById<ImageButton>(R.id.login_button)
-        loginButton.setOnClickListener{
-//            val email = emailEditText.text.toString()
-//            val password = passwordTextInputEditText.text.toString()
+    private fun startHomeActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 
-
-        }
-
+    fun createNewAccountClick(view: View) {
+        val intent = Intent(this, CreateNewAccount::class.java)
+        startActivity(intent)
     }
 }
+
+//            val homeFragment = HomeFragment()
+//            supportFragmentManager.beginTransaction().replace(R.id.login_page, homeFragment).commit()

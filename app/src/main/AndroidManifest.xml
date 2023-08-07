@@ -6,8 +6,15 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <supports-screens
+        android:largeScreens="true"
+        android:smallScreens="false"
+        android:normalScreens="true"
+        android:xlargeScreens="true"/>
+
     <application
-        android:allowBackup="true"
+        android:name=".MyApplication"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -20,14 +27,16 @@
             android:exported="true">
         </activity>
         <activity
+            android:name=".CreateNewAccount"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".LoginActivity"
-            android:exported="true"
-            android:label="LoginActivity">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 

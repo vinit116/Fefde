@@ -44,7 +44,8 @@
             android:textSize="12sp"
             android:textStyle="bold"
             android:layout_gravity="center"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:onClick="logInHereClick"/>
 
     </LinearLayout>
 
@@ -92,6 +93,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
+                    android:inputType="textPersonName"
                     android:maxLines="1"
                     android:background="@drawable/rounded_rect"/>
 
@@ -151,6 +153,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
+                    android:inputType="textPassword"
                     android:maxLines="1"
                     android:background="@drawable/rounded_rect"/>
 
@@ -179,6 +182,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
+                    android:inputType="date"
                     android:maxLines="1"
                     android:background="@drawable/rounded_rect"/>
 
