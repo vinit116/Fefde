@@ -20,6 +20,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:hardwareAccelerated="true"
         android:theme="@style/Theme.Potli"
         tools:targetApi="31">
         <activity
@@ -38,6 +39,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name=".SmsBackgroundService"/>
     </application>
 
 </manifest>

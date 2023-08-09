@@ -8,15 +8,6 @@
     android:background="@color/black"
     tools:context=".AddPotliFragment">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        style="@style/BottomNavigationViewStyle"
-        app:menu="@menu/bottom_navigation_menu"
-        app:labelVisibilityMode="unlabeled"
-        app:itemIconSize="42dp"/>
 
     <FrameLayout
         android:id="@+id/profile_photo_container"
@@ -38,8 +29,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="320dp"
-        android:layout_marginTop="351dp">
+        android:layout_height="420dp"
+        android:layout_above="@id/margin">
 
         <ImageView
             android:layout_width="match_parent"
@@ -110,6 +101,7 @@
     </FrameLayout>
 
     <View
+        android:id="@+id/margin"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#33443c"
