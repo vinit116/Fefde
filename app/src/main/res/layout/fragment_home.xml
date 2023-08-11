@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/black">
-
-
+    android:background="@color/black"
+    tools:context=".HomeFragment">
 
 
     <TextView
@@ -80,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:text="100"
+                android:text="0"
                 android:textColor="@color/white"/>
 
 
@@ -113,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:text="100"
+                android:text="0"
                 android:textColor="@color/white"/>
 
 
@@ -196,10 +195,10 @@
                         android:layout_height="90dp"
                         android:layout_marginTop="17dp"
                         android:scaleX="1.3"
-                        android:scaleY="1.5"
-                        android:background="@drawable/food_potli"/>
+                        android:scaleY="1.5" />
 
                     <TextView
+                        android:id="@+id/food_bal_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
@@ -226,8 +225,7 @@
                         android:layout_height="90dp"
                         android:layout_marginTop="20dp"
                         android:scaleX="1.8"
-                        android:scaleY="2"
-                        android:background="@drawable/rent_potli"/>
+                        android:scaleY="2" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -256,8 +254,7 @@
                         android:layout_height="90dp"
                         android:layout_marginTop="17dp"
                         android:scaleX="2.6"
-                        android:scaleY="2.2"
-                        android:background="@drawable/travel_potli"/>
+                        android:scaleY="2.2" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -286,8 +283,7 @@
                         android:layout_height="90dp"
                         android:layout_marginTop="8dp"
                         android:scaleX="0.5"
-                        android:scaleY="0.5"
-                        android:background="@drawable/baseline_add_24"/>
+                        android:scaleY="0.5"/>
 
                     <TextView
                         android:layout_width="wrap_content"

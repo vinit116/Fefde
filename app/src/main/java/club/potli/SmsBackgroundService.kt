@@ -4,6 +4,8 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import android.content.IntentFilter
+import android.provider.Telephony.Sms
+import android.util.Log
 
 class SmsBackgroundService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
     android:background="@color/black"
-    tools:context=".RewardsFragment">
-
+    tools:context=".ContactUsFragment">
 
     <FrameLayout
         android:id="@+id/profile_photo_container"

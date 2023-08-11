@@ -31,6 +31,7 @@ class CreateNewAccount : AppCompatActivity() {
                     try {
                         app.emailPasswordAuth.registerUser(userEmail,userPassword)
                         Log.v("User", "User created Successfully")
+                        startLoginActivity()
                     } catch (e: Exception) {
                         Log.e("User", "User creation failed: ${e.message}")
                         withContext(Dispatchers.Main) {
@@ -52,6 +53,11 @@ class CreateNewAccount : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun startLoginActivity() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
     }
 
     fun logInHereClick(view: View) {

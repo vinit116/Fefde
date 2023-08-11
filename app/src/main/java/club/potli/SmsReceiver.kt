@@ -3,17 +3,39 @@ package club.potli
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.telephony.SmsMessage
+import android.util.Log
+import android.provider.Telephony
+import androidx.appcompat.app.AppCompatActivity
 
-class SmsReceiver : BroadcastReceiver() {
+class SmsReceiver() : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        if (intent?.action == "android.provider.Telephony.SMS_RECEIVED") {
+        if (intent?.action == Telephony.Sms.Intents.SMS_RECEIVED_ACTION){
             val bundle = intent.extras
             if (bundle != null) {
-                val pdus = bundle["pdus"] as Array<*>?
-                val messages = arrayOfNulls<SmsMessage>(pdus?.size ?: 0)
-                for (i in messages.indices) {
-                    messages[i] = SmsMessage.createFromPdu(pdus?.get(i) as ByteArray?)
+                val messages = Telephony.Sms.Intents.getMessagesFromIntent(intent)
+                for (message in messages) {
+                    val messageBody = message.messageBody
+                    val searchTerm = "debited by"
+                    val searchTermIndex = messageBody.indexOf(searchTerm, ignoreCase = true)
+
+                    if(searchTermIndex != -1){
+                        val startIndex = searchTermIndex + searchTerm.length
+                        val numberPattern = "\\d+(\\.\\d+)?".toRegex()
+                        val matchResult = numberPattern.find(messageBody, startIndex)
+
+                        if (matchResult != null){
+                            val number = matchResult.value
+                            val amount : Double = try{
+                                number.toDouble()
+                            } catch (e: java.lang.NumberFormatException) {
+                                -1.0
+                            }
+
+                            if (amount != -1.0) {
+                                Log.v("Amount", "Debited by $amount")
+                            }
+                        }
+                    }
                 }
             }
         }
