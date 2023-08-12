@@ -1,10 +1,14 @@
 package club.potli
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -17,9 +21,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SmsReceiverCallback {
     private val app = App.create(Constants.APP_ID)
     private val user = app.currentUser
+
 
     companion object {
         private const val SMS_PERMISSIONS_CODE = 69
@@ -29,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_container)
 
+        SmsReceiverCallbackHolder.setCallback(this)
 
         val readSmsPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_SMS)
         val receiveSmsPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECEIVE_SMS)
@@ -97,6 +103,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onAmountDetected(amount: Double) {
+        Toast.makeText(this, "Amount debited: $amount, Potli Dialog Box Coming Soon.", Toast.LENGTH_SHORT).show()
+    }
+
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.layout_container, fragment).commit()
     }
@@ -111,4 +121,5 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
+
 }

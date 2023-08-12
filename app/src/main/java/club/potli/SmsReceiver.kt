@@ -5,9 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.provider.Telephony
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class SmsReceiver() : BroadcastReceiver() {
+
     override fun onReceive(context: Context?, intent: Intent?) {
         if (intent?.action == Telephony.Sms.Intents.SMS_RECEIVED_ACTION){
             val bundle = intent.extras
@@ -33,6 +35,7 @@ class SmsReceiver() : BroadcastReceiver() {
 
                             if (amount != -1.0) {
                                 Log.v("Amount", "Debited by $amount")
+                                SmsReceiverCallbackHolder.notifyAmountDetected(amount)
                             }
                         }
                     }
