@@ -74,7 +74,10 @@
                 android:background="@drawable/rupee"
                 android:layout_marginStart="60dp"/>
 
-            <TextView
+
+            <EditText
+                android:focusableInTouchMode="false"
+                android:id="@+id/monthly_bal_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"

@@ -7,6 +7,8 @@ import android.util.Log
 import android.provider.Telephony
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SmsReceiver() : BroadcastReceiver() {
 
@@ -16,6 +18,8 @@ class SmsReceiver() : BroadcastReceiver() {
             if (bundle != null) {
                 val messages = Telephony.Sms.Intents.getMessagesFromIntent(intent)
                 for (message in messages) {
+                    val timeStampMillis = message.timestampMillis
+                    val timeStamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date(timeStampMillis))
                     val messageBody = message.messageBody
                     val searchTerm = "debited by"
                     val searchTermIndex = messageBody.indexOf(searchTerm, ignoreCase = true)
@@ -35,6 +39,7 @@ class SmsReceiver() : BroadcastReceiver() {
 
                             if (amount != -1.0) {
                                 Log.v("Amount", "Debited by $amount")
+                                Log.v("Timestamp", "Received at $timeStamp")
                                 SmsReceiverCallbackHolder.notifyAmountDetected(amount)
                             }
                         }

@@ -12,7 +12,6 @@ class SmsBackgroundService : Service() {
         val smsReceiver = SmsReceiver()
         val intentFilter = IntentFilter("android.provider.Telephony.SMS_RECEIVED")
         registerReceiver(smsReceiver, intentFilter)
-
         return START_STICKY
     }
 
