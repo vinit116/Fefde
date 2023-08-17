@@ -4,4 +4,5 @@ import androidx.lifecycle.ViewModel
 
 class AppViewModel : ViewModel() {
     var savedMonthlyBal : String = "0"
+    var userName : String = ""
 }

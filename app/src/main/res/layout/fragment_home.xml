@@ -9,25 +9,42 @@
     tools:context=".HomeFragment">
 
 
-    <TextView
-        android:id="@+id/Greet"
+    <LinearLayout
+        android:id="@+id/greetLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="20dp"
-        android:text="Hi, John Doe"
-        android:textColor="@color/white"
-        android:textSize="15sp"/>
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="20dp"
+            android:text="Hi,"
+            android:textColor="@color/white"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="20dp"
+            android:text="John Doe"
+            android:textColor="@color/white"
+            android:textSize="15sp"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/Welcome_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/Greet"
+        android:layout_below="@id/greetLayout"
         android:layout_marginStart="22dp"
         android:text="Welcome Back"
         android:textColor="@color/white"
-        android:textSize="18sp"/>
+        android:textSize="17sp"/>
 
     <FrameLayout
         android:id="@+id/profile_photo_container"

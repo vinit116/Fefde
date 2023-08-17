@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.ViewModelProvider
 import club.potli.util.Constants
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import io.realm.kotlin.mongodb.App
@@ -25,6 +26,8 @@ class MainActivity : AppCompatActivity(), SmsReceiverCallback {
     private val app = App.create(Constants.APP_ID)
     private val user = app.currentUser
 
+    private lateinit var viewModel: AppViewModel
+    private lateinit var userName : String
 
     companion object {
         private const val SMS_PERMISSIONS_CODE = 69
@@ -33,6 +36,11 @@ class MainActivity : AppCompatActivity(), SmsReceiverCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_container)
+
+        userName = intent.getStringExtra("USER_NAME").toString()
+
+        viewModel = ViewModelProvider(this)[AppViewModel::class.java]
+        viewModel.userName = userName
 
         SmsReceiverCallbackHolder.setCallback(this)
 

@@ -35,6 +35,12 @@ class HomeFragment : Fragment() {
     ): View? {
         val rootView =  inflater.inflate(R.layout.fragment_home, container, false)
 
+        viewModel = ViewModelProvider(requireActivity())[AppViewModel::class.java]
+
+        val userName = rootView.findViewById<TextView>(R.id.userName)
+        userName.text = viewModel.userName
+
+
         val foodPotliImg : ImageView = rootView.findViewById(R.id.food_potli_img)
         val rentPotliImg : ImageView = rootView.findViewById(R.id.rent_potli_img)
         val travelPotliImg : ImageView = rootView.findViewById(R.id.travel_potli_img)
@@ -85,7 +91,7 @@ class HomeFragment : Fragment() {
                 monthlyBalanceText.isEnabled = false
                 monthlyBalanceText.isFocusableInTouchMode = false
                 viewModel.savedMonthlyBal = monthlyBalanceText.text.toString()
-                Log.v("OnClick", "${viewModel.savedMonthlyBal}")
+                Log.v("OnClick", viewModel.savedMonthlyBal)
             }
         }
     }

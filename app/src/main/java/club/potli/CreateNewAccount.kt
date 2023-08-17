@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import club.potli.util.Constants.APP_ID
 import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.*
@@ -15,6 +16,9 @@ import kotlinx.coroutines.*
 class CreateNewAccount : AppCompatActivity() {
 
     val app: App = App.create(APP_ID)
+
+    private lateinit var viewModel: AppViewModel
+    private lateinit var userName : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +28,12 @@ class CreateNewAccount : AppCompatActivity() {
         val signUp = findViewById<ImageButton>(R.id.signUp)
 
         signUp.setOnClickListener {
+
+            viewModel = ViewModelProvider(this)[AppViewModel::class.java]
+            userName = findViewById<EditText>(R.id.user_name).text.toString()
+
+            Log.v("CreateAccName",viewModel.userName)
+
             val userEmail = findViewById<EditText>(R.id.user_email).text.toString()
             val userPassword = findViewById<EditText>(R.id.user_password).text.toString()
             if (userEmail.isNotBlank() && userPassword.isNotBlank()){
@@ -57,6 +67,7 @@ class CreateNewAccount : AppCompatActivity() {
 
     private fun startLoginActivity() {
         val intent = Intent(this, LoginActivity::class.java)
+        intent.putExtra("USER_NAME", userName)
         startActivity(intent)
     }
 

@@ -18,9 +18,13 @@ class LoginActivity : AppCompatActivity() {
     private val app = App.create(APP_ID)
     private val user = app.currentUser
 
+    private lateinit var userName : String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_page)
+
+        userName = intent.getStringExtra("USER_NAME").toString()
 
         if (user != null) {
             startMainActivity()
@@ -63,6 +67,7 @@ class LoginActivity : AppCompatActivity() {
     }
     private fun startMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("USER_NAME", userName)
         startActivity(intent)
         finish()
     }
