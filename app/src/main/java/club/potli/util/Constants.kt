@@ -2,4 +2,7 @@ package club.potli.util
 
 object Constants {
     const val APP_ID = "potli-hlxas"
+    const val SHOUTOUT_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkZDRlZmE1MC0zZDUxLTExZWUtYWRkZC1kNzQ2MjJjYTFlZTkiLCJzdWIiOiJTSE9VVE9VVF9BUElfVVNFUiIsImlhdCI6MTY5MjMxMzIzMCwiZXhwIjoyMDA3OTMyNDMwLCJzY29wZXMiOnsiYWN0aXZpdGllcyI6WyJyZWFkIiwid3JpdGUiXSwibWVzc2FnZXMiOlsicmVhZCIsIndyaXRlIl0sImNvbnRhY3RzIjpbInJlYWQiLCJ3cml0ZSJdfSwic29fdXNlcl9pZCI6IjU3NDMxNiIsInNvX3VzZXJfcm9sZSI6InVzZXIiLCJzb19wcm9maWxlIjoiYWxsIiwic29fdXNlcl9uYW1lIjoiIiwic29fYXBpa2V5Ijoibm9uZSJ9.kNKMHgFh690V2chD62dqsUPhMV6LlTObEwmO_nvTi1k"
+    const val RAPIDAPI_KEY = "cdcb6c00ebmshd1730e01e4e7194p163226jsn1eaaefceb800"
+    const val RAPIDAPI_HOST = "shoutout-otp1.p.rapidapi.com"
 }

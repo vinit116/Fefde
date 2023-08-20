@@ -44,8 +44,7 @@
                         android:layout_width="160dp"
                         android:layout_height="match_parent"
                         android:scaleY="2"
-                        android:scaleX="1.2"
-                        android:background="@drawable/food_potli"/>
+                        android:scaleX="1.2"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -71,8 +70,7 @@
                         android:layout_marginTop="15dp"
                         android:layout_height="match_parent"
                         android:scaleY="2.5"
-                        android:scaleX="1.6"
-                        android:background="@drawable/rent_potli"/>
+                        android:scaleX="1.6" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -105,8 +103,7 @@
                         android:layout_marginTop="15dp"
                         android:layout_height="match_parent"
                         android:scaleY="2.8"
-                        android:scaleX="2.5"
-                        android:background="@drawable/travel_potli"/>
+                        android:scaleX="2.5"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -133,8 +130,7 @@
                         android:layout_height="match_parent"
                         android:scaleY="0.4"
                         android:scaleX="0.4"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/baseline_add_24"/>
+                        android:layout_gravity="center_vertical"/>
 
                     <TextView
                         android:layout_width="match_parent"

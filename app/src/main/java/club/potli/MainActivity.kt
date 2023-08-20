@@ -1,14 +1,19 @@
 package club.potli
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -22,7 +27,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainActivity : AppCompatActivity(), SmsReceiverCallback {
+class MainActivity : AppCompatActivity() {
     private val app = App.create(Constants.APP_ID)
     private val user = app.currentUser
 
@@ -31,18 +36,23 @@ class MainActivity : AppCompatActivity(), SmsReceiverCallback {
 
     companion object {
         private const val SMS_PERMISSIONS_CODE = 69
+        private const val OVERLAY_PERMISSION_REQUEST_CODE = 123
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_container)
+
+        if (!hasOverlayPermission()){
+            requestOverlayPermission()
+        }
 
         userName = intent.getStringExtra("USER_NAME").toString()
 
         viewModel = ViewModelProvider(this)[AppViewModel::class.java]
         viewModel.userName = userName
 
-        SmsReceiverCallbackHolder.setCallback(this)
 
         val readSmsPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_SMS)
         val receiveSmsPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECEIVE_SMS)
@@ -111,8 +121,28 @@ class MainActivity : AppCompatActivity(), SmsReceiverCallback {
         }
     }
 
-    override fun onAmountDetected(amount: Double) {
-        Toast.makeText(this, "Amount debited: $amount, Potli Dialog Box Coming Soon.", Toast.LENGTH_SHORT).show()
+    private fun hasOverlayPermission(): Boolean {
+        return Settings.canDrawOverlays(this)
+    }
+
+    private fun requestOverlayPermission() {
+        val intent = Intent(
+            Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+            Uri.parse("package:$packageName")
+        )
+
+        val activityResultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val serviceIntent = Intent(this, FloatingDialogService::class.java)
+                startService(serviceIntent)
+            } else {
+                requestOverlayPermission()
+            }
+        }
+
+        activityResultLauncher.launch(intent)
     }
 
     private fun loadFragment(fragment: Fragment) {

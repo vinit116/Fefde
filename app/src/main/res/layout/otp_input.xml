@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/black">
+
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OTP Verification"
+        android:textColor="@color/white"
+        android:gravity="center_horizontal"
+        android:textSize="30sp"
+        android:layout_marginTop="70dp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:background="@drawable/rounded_rectangle"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter OTP Code"
+            android:layout_marginTop="28dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp">
+
+            <EditText
+                android:id="@+id/digit1"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/rounded_rect_border_high"/>
+
+            <EditText
+                android:id="@+id/digit2"
+                android:layout_marginStart="20dp"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/rounded_rect_border_high"/>
+
+            <EditText
+                android:id="@+id/digit3"
+                android:layout_marginStart="20dp"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/rounded_rect_border_high"/>
+
+            <EditText
+                android:id="@+id/digit4"
+                android:layout_marginStart="20dp"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/rounded_rect_border_high"/>
+
+            <EditText
+                android:id="@+id/digit5"
+                android:layout_marginStart="20dp"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/rounded_rect_border_high"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="The code will get expired in 5 minutes"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

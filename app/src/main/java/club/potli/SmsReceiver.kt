@@ -40,7 +40,7 @@ class SmsReceiver() : BroadcastReceiver() {
                             if (amount != -1.0) {
                                 Log.v("Amount", "Debited by $amount")
                                 Log.v("Timestamp", "Received at $timeStamp")
-                                SmsReceiverCallbackHolder.notifyAmountDetected(amount)
+                                FloatingDialogService()
                             }
                         }
                     }
