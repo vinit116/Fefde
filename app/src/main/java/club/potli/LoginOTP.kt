@@ -8,14 +8,16 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
-import club.potli.otpapi.OTPReceiver
-import club.potli.otpapi.OTPSender
-import club.potli.otpapi.OTPSenderCallback
 import club.potli.util.Constants
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.PhoneAuthOptions
+import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.ktx.Firebase
 import io.realm.kotlin.mongodb.App
+import java.util.concurrent.TimeUnit
 
 
-class LoginOTP : AppCompatActivity(), OTPSenderCallback {
+class LoginOTP : AppCompatActivity() {
     private val app = App.create(Constants.APP_ID)
     private val user = app.currentUser
 
@@ -34,14 +36,19 @@ class LoginOTP : AppCompatActivity(), OTPSenderCallback {
 
         getOTP.setOnClickListener {
             val phoneNo = findViewById<EditText>(R.id.tenDigit).text.toString()
-            Log.v("Phone No", "$phoneNo")
-            OTPSender().sendOtp(this, phoneNo, this)
-            startOTPInput()
-        }
-    }
+            Log.v("Phone No", phoneNo)
 
-    override fun onOtpSent(referenceId: String) {
-        this.referenceId = referenceId
+            val auth = FirebaseAuth.getInstance()
+
+            val options = PhoneAuthOptions.newBuilder(auth)
+                .setPhoneNumber(phoneNo) // Phone number to verify
+                .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                .setActivity(this) // Activity (for callback binding)
+                .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
+                .build()
+            PhoneAuthProvider.verifyPhoneNumber(options)
+
+        }
     }
 
 
@@ -106,16 +113,12 @@ class LoginOTP : AppCompatActivity(), OTPSenderCallback {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val otp = "${digit1.text}${digit2.text}${digit3.text}${digit4.text}${digit5.text}"
-                checkOTP(otp, referenceId, this@LoginOTP)
             }
 
             override fun afterTextChanged(s: Editable?) {}
         })
 
     }
-
-    fun checkOTP(otp : String, referenceId: String, context: Context){
-        OTPReceiver().verifyOtp(otp, referenceId, context)
-    }
 }
+
 

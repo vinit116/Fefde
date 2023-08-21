@@ -146,7 +146,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-thin"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:text="Remember me"
         android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
@@ -159,7 +159,7 @@
         android:id="@+id/forgot_password_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:textColor="@color/blue"
         android:onClick="onForgotPasswordClick"
         android:text="Forgot Password?" />
@@ -202,7 +202,7 @@
         android:layout_height="wrap_content"
         android:text="Don't have account?"
         android:layout_marginTop="15dp"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:textColor="@color/black"/>
 
     <TextView
@@ -213,7 +213,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create a new one"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:textColor="@color/blue"
         android:onClick="createNewAccountClick"/>
 

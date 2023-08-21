@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "690705069374",
+    "project_id": "potli-4a8c7",
+    "storage_bucket": "potli-4a8c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:690705069374:android:07248f884d2ce65c1ea86f",
+        "android_client_info": {
+          "package_name": "club.potli"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "690705069374-ded9o8qmb330e7ep2naul7s9dsd0s9v1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "club.potli",
+            "certificate_hash": "6169db1d254700e5b2439af7ba708d354e3c8823"
+          }
+        },
+        {
+          "client_id": "690705069374-qb6ic9hr9uomcsbs7itls2jdpohom2k0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFBqTAqHiSBv9QD40glcaFS84TjqAnhqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "690705069374-qb6ic9hr9uomcsbs7itls2jdpohom2k0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
