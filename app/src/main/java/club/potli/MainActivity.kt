@@ -21,6 +21,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import club.potli.util.Constants
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -43,6 +45,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_container)
+
+        if (!hasSmsPermissions()) {
+            requestSmsPermissions()
+        } else {
+            val serviceIntent = Intent(this, SmsBackgroundService::class.java)
+            startService(serviceIntent)
+        }
+
 
         if (!hasOverlayPermission()){
             requestOverlayPermission()
@@ -100,6 +110,20 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+    private fun hasSmsPermissions(): Boolean {
+        val readSmsPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_SMS)
+        val receiveSmsPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECEIVE_SMS)
+        return readSmsPermission == PackageManager.PERMISSION_GRANTED && receiveSmsPermission == PackageManager.PERMISSION_GRANTED
+    }
+
+    // Helper function to request SMS permissions
+    private fun requestSmsPermissions() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(android.Manifest.permission.READ_SMS, android.Manifest.permission.RECEIVE_SMS),
+            SMS_PERMISSIONS_CODE
+        )
+    }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
@@ -135,8 +159,7 @@ class MainActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val serviceIntent = Intent(this, FloatingDialogService::class.java)
-                startService(serviceIntent)
+                loadFragment(HomeFragment())
             } else {
                 requestOverlayPermission()
             }
@@ -153,6 +176,7 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             user?.logOut()
         }
+        Firebase.auth.signOut()
     }
 
     private fun startLoginActivity() {

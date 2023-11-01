@@ -8,15 +8,92 @@
     android:background="@color/black"
     tools:context=".HomeFragment">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftguide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_begin="22dp"
+        android:orientation="vertical"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightguide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_end="22dp"
+        android:orientation="vertical"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/topguide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_begin="20dp"
+        android:orientation="horizontal"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/monthlyleft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_begin="65dp"
+        android:orientation="vertical"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/monthlyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_end="65dp"
+        android:orientation="vertical"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/monthlytop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_begin="100dp"
+        android:orientation="horizontal"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_middle_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+
+    <TextView
+        app:layout_constraintStart_toStartOf="@id/leftguide"
+        app:layout_constraintTop_toTopOf="@id/topguide"
+        android:id="@+id/hi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hi,"
+        android:textColor="@color/white"
+        android:textSize="15sp"/>
+
+    <TextView
+        app:layout_constraintStart_toEndOf="@id/hi"
+        app:layout_constraintTop_toTopOf="@id/topguide"
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:text="John Doe"
+        android:textColor="@color/white"
+        android:textSize="15sp"/>
+
+    <TextView
+        app:layout_constraintStart_toStartOf="@id/leftguide"
+        app:layout_constraintTop_toBottomOf="@+id/hi"
+        android:textSize="17sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome Back"
+        android:textColor="@color/white"/>
+
     <FrameLayout
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="340dp"
-        android:layout_marginEnd="30dp"
+        app:layout_constraintTop_toTopOf="@id/topguide"
+        app:layout_constraintEnd_toEndOf="@id/rightguide"
         android:id="@+id/profile_photo_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         app:layout_constraintRight_toRightOf="parent">
 
         <ImageView
@@ -29,137 +106,89 @@
 
     </FrameLayout>
 
-    <LinearLayout
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:id="@+id/greetLayout"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="20dp"
+    <TextView
+        app:layout_constraintLeft_toLeftOf="@id/monthlyleft"
+        app:layout_constraintTop_toBottomOf="@id/monthlytop"
+        android:id="@+id/monthlybaltext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:text="Monthly Balance"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hi,"
-            android:textColor="@color/white"
-            android:textSize="15dp"/>
+    <ImageView
+        app:layout_constraintTop_toTopOf="@+id/monthlytop"
+        app:layout_constraintRight_toLeftOf="@+id/monthlyright"
+        android:id="@+id/monthly_bal_rs"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/rupee" />
 
-        <TextView
-            android:id="@+id/userName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:text="John Doe"
-            android:textColor="@color/white"
-            android:textSize="15dp"/>
-
-    </LinearLayout>
+    <EditText
+        app:layout_constraintVertical_weight="7"
+        app:layout_constraintTop_toTopOf="@+id/monthlytop"
+        app:layout_constraintStart_toEndOf="@+id/monthly_bal_rs"
+        android:focusableInTouchMode="false"
+        android:id="@+id/monthly_bal_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:padding="0dp"
+        android:text="0"
+        android:textColor="@color/white"/>
 
     <TextView
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/greetLayout"
-        android:id="@+id/Welcome_back"
+        app:layout_constraintLeft_toLeftOf="@id/monthlyleft"
+        app:layout_constraintTop_toBottomOf="@id/monthlybaltext"
+        android:id="@+id/spenttillnowtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/greetLayout"
-        android:layout_marginStart="22dp"
-        android:text="Welcome Back"
-        android:textColor="@color/white"
-        android:textSize="17dp"/>
+        android:text="Spent Till Now"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"/>
 
-    <LinearLayout
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+    <ImageView
+        app:layout_constraintLeft_toLeftOf="@id/monthly_bal_rs"
+        app:layout_constraintTop_toBottomOf="@id/monthly_bal_rs"
+        app:layout_constraintTop_toTopOf="@id/spenttillnowtext"
+        android:id="@+id/spenttillnowrs"
+        android:layout_marginTop="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/rupee" />
+
+    <TextView
+        app:layout_constraintStart_toEndOf="@id/spenttillnowrs"
+        app:layout_constraintTop_toTopOf="@id/spenttillnowtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/MBSTN"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="120dp">
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:text="0"
+        android:textColor="@color/white"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Monthly Balance"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:textColor="@color/white"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/rupee"
-                android:layout_marginStart="60dp"/>
-
-
-            <EditText
-                android:focusableInTouchMode="false"
-                android:id="@+id/monthly_bal_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                android:text="0"
-                android:textColor="@color/white"/>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/spent_till_now_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Spent Till Now"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:textColor="@color/white"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/rupee"
-                android:layout_marginStart="78dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                android:text="0"
-                android:textColor="@color/white"/>
-
-
-        </LinearLayout>
-
-    </LinearLayout>
 
     <FrameLayout
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/MBSTN"
+        app:layout_constraintLeft_toLeftOf="@id/monthlyleft"
+        app:layout_constraintRight_toRightOf="@id/monthlyright"
+        app:layout_constraintTop_toBottomOf="@id/spenttillnowtext"
+        app:layout_constraintBottom_toTopOf="@id/potli_bar"
         android:id="@+id/update_balance_button_layout"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:layout_marginTop="40dp">
+        android:layout_width="wrap_content"
+        android:layout_height="50dp">
 
         <ImageButton
+            android:contentDescription="ignore"
             android:id="@+id/update_balance_button"
-            android:layout_width="190dp"
+            android:layout_width="160dp"
             android:layout_height="match_parent"
             android:background="@drawable/update_balance_button_bg"
             android:layout_gravity="center_horizontal"/>
@@ -169,7 +198,7 @@
             android:layout_height="wrap_content"
             android:text="Update Balance"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textColor="@color/white"
             android:layout_gravity="center"/>
 
@@ -177,15 +206,18 @@
 
 
 
-    <ImageView
+    <View
         app:layout_constraintBottom_toTopOf="@id/margin"
-        app:layout_constraintTop_toTopOf="@id/potli_bar"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline_middle_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="420dp"
+        android:id="@+id/whiteview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="#f4f6ff"
-        android:layout_marginTop="45dp"/>
+        android:layout_marginTop="-70dp"/>
+
     <View
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/margin"
@@ -196,14 +228,16 @@
 
     <FrameLayout
         android:id="@+id/potli_bar"
-        app:layout_constraintTop_toBottomOf="@id/update_balance_button_layout"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="50dp">
+        app:layout_constraintTop_toTopOf="@id/whiteview"
+        app:layout_constraintLeft_toLeftOf="@id/leftguide"
+        app:layout_constraintRight_toRightOf="@id/rightguide"
+        app:layout_constraintBottom_toTopOf="@id/guideline_middle_horizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="-30dp"
+        android:layout_marginBottom="-30dp">
 
         <ImageView
             android:layout_width="match_parent"

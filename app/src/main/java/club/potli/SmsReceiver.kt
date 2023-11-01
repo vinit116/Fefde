@@ -7,12 +7,15 @@ import android.util.Log
 import android.provider.Telephony
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
 class SmsReceiver() : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
+
         if (intent?.action == Telephony.Sms.Intents.SMS_RECEIVED_ACTION){
             val bundle = intent.extras
             if (bundle != null) {
@@ -40,7 +43,18 @@ class SmsReceiver() : BroadcastReceiver() {
                             if (amount != -1.0) {
                                 Log.v("Amount", "Debited by $amount")
                                 Log.v("Timestamp", "Received at $timeStamp")
-                                FloatingDialogService()
+                                Toast.makeText(
+                                    context,
+                                    "Debited Amount : $amount",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                Toast.makeText(
+                                    context,
+                                    "At $timeStamp",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                val floatingDialogIntent = Intent(context, FloatingDialogService::class.java)
+                                context?.startService(floatingDialogIntent)
                             }
                         }
                     }

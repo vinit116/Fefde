@@ -128,7 +128,7 @@
 
 
     <TextView
-        android:id="@+id/create_new_acc"
+        android:id="@+id/useEmailInstead"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/get_otp_layout"

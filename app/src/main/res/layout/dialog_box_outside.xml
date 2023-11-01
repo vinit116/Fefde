@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="360dp"
-    android:layout_height="330dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/dialog_box_outside"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
+    tools:context=".FloatingDialogService">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:background="@drawable/dialog_box_outside"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
@@ -40,6 +40,8 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:clickable="true"
+                        android:focusable="true"
                         android:id="@+id/food_potli_img"
                         android:layout_width="160dp"
                         android:layout_height="match_parent"
@@ -106,6 +108,7 @@
                         android:scaleX="2.5"/>
 
                     <TextView
+                        android:paddingBottom="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Travel"
@@ -133,6 +136,7 @@
                         android:layout_gravity="center_vertical"/>
 
                     <TextView
+                        android:paddingBottom="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Add Potli"
