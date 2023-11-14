@@ -299,6 +299,7 @@
                         android:scaleY="2" />
 
                     <TextView
+                        android:id="@+id/rent_bal_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
@@ -328,6 +329,7 @@
                         android:scaleY="2.2" />
 
                     <TextView
+                        android:id="@+id/travel_bal_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
@@ -357,6 +359,7 @@
                         android:scaleY="0.5"/>
 
                     <TextView
+                        android:id="@+id/add_bal_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"

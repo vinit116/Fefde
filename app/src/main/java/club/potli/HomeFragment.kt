@@ -21,7 +21,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), TransactionCallback {
     private lateinit var viewModel: AppViewModel
     private var isEditMode : Boolean = false
 
@@ -93,6 +93,25 @@ class HomeFragment : Fragment() {
                 viewModel.savedMonthlyBal = monthlyBalanceText.text.toString()
                 Log.v("OnClick", viewModel.savedMonthlyBal)
             }
+        }
+    }
+
+    private fun updateBalance(textViewId: Int, amount: Double) {
+        val textView = view?.findViewById<TextView>(textViewId)
+        textView?.let {
+            val currentBalance = it.text.toString().toDouble()
+            val newBalance = currentBalance - amount
+            Log.v("Deduction Check", "$newBalance")
+            it.text = newBalance.toString()
+        }
+    }
+
+    override fun onTransactionAmountUpdated(amount: Double, imageId: Int) {
+        when (imageId) {
+            R.id.food_potli_img -> updateBalance(R.id.food_bal_text, amount)
+            R.id.rent_potli_img -> updateBalance(R.id.rent_bal_text, amount)
+            R.id.travel_potli_img -> updateBalance(R.id.travel_bal_text, amount)
+            R.id.add_potli_img -> updateBalance(R.id.add_bal_text, amount)
         }
     }
 }

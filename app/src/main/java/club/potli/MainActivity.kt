@@ -1,23 +1,17 @@
 package club.potli
 
 import android.app.Activity
-import android.app.AlertDialog
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import club.potli.util.Constants
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -27,18 +21,15 @@ import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     private val app = App.create(Constants.APP_ID)
     private val user = app.currentUser
 
     private lateinit var viewModel: AppViewModel
-    private lateinit var userName : String
 
     companion object {
         private const val SMS_PERMISSIONS_CODE = 69
-        private const val OVERLAY_PERMISSION_REQUEST_CODE = 123
     }
 
 
@@ -46,22 +37,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_container)
 
-        if (!hasSmsPermissions()) {
-            requestSmsPermissions()
-        } else {
-            val serviceIntent = Intent(this, SmsBackgroundService::class.java)
-            startService(serviceIntent)
-        }
 
-
-        if (!hasOverlayPermission()){
+        if (!Settings.canDrawOverlays(this)){
             requestOverlayPermission()
         }
 
-        userName = intent.getStringExtra("USER_NAME").toString()
 
         viewModel = ViewModelProvider(this)[AppViewModel::class.java]
-        viewModel.userName = userName
 
 
         val readSmsPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_SMS)
@@ -108,22 +90,8 @@ class MainActivity : AppCompatActivity() {
             logOut()
             startLoginActivity()
         }
-
-    }
-    private fun hasSmsPermissions(): Boolean {
-        val readSmsPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_SMS)
-        val receiveSmsPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECEIVE_SMS)
-        return readSmsPermission == PackageManager.PERMISSION_GRANTED && receiveSmsPermission == PackageManager.PERMISSION_GRANTED
     }
 
-    // Helper function to request SMS permissions
-    private fun requestSmsPermissions() {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(android.Manifest.permission.READ_SMS, android.Manifest.permission.RECEIVE_SMS),
-            SMS_PERMISSIONS_CODE
-        )
-    }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
@@ -145,10 +113,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun hasOverlayPermission(): Boolean {
-        return Settings.canDrawOverlays(this)
-    }
-
     private fun requestOverlayPermission() {
         val intent = Intent(
             Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
@@ -160,11 +124,8 @@ class MainActivity : AppCompatActivity() {
         ) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 loadFragment(HomeFragment())
-            } else {
-                requestOverlayPermission()
             }
         }
-
         activityResultLauncher.launch(intent)
     }
 

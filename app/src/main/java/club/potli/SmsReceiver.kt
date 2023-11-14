@@ -54,6 +54,7 @@ class SmsReceiver() : BroadcastReceiver() {
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 val floatingDialogIntent = Intent(context, FloatingDialogService::class.java)
+                                floatingDialogIntent.putExtra("amount", "$amount")
                                 context?.startService(floatingDialogIntent)
                             }
                         }

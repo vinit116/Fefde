@@ -67,7 +67,6 @@ class CreateNewAccount : AppCompatActivity() {
 
     private fun startLoginActivity() {
         val intent = Intent(this, LoginActivity::class.java)
-        intent.putExtra("USER_NAME", userName)
         startActivity(intent)
     }
 

@@ -1,24 +1,27 @@
 package club.potli
 
-import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.IBinder
+import android.provider.Settings
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.WindowManager
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
 
-class FloatingDialogService : Service() {
+class FloatingDialogService : Service(){
+    private var transactionCallback: TransactionCallback? = null
 
     private var floatingView: RelativeLayout? = null
     private var windowManager: WindowManager? = null
+
+    private var amount: Double = 0.0
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -26,7 +29,23 @@ class FloatingDialogService : Service() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        showFloatingView()
+        val amountStr = intent?.getStringExtra("amount")
+        amount = amountStr?.toDoubleOrNull() ?: 0.0
+        Log.v("onStartCommand", "$amount")
+        try {
+            if (!Settings.canDrawOverlays(this)) {
+                val intent = Intent(
+                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:$packageName")
+                )
+                startActivity(intent)
+            } else {
+                showFloatingView()
+            }
+        } catch (e: WindowManager.BadTokenException){
+            e.printStackTrace()
+        }
+
         return START_STICKY
     }
 
@@ -49,9 +68,10 @@ class FloatingDialogService : Service() {
         windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         windowManager?.addView(floatingView, layoutParams)
 
-
-
-        val foodPotliImg : ImageView? = floatingView?.findViewById<ImageView>(R.id.food_potli_img)
+        val foodPotliImg : ImageView? = floatingView?.findViewById(R.id.food_potli_img)
+        val rentPotliImg : ImageView? = floatingView?.findViewById(R.id.rent_potli_img)
+        val travelPotliImg : ImageView? = floatingView?.findViewById(R.id.travel_potli_img)
+        val addPotliImg : ImageView? = floatingView?.findViewById(R.id.add_potli_img)
 
         if (foodPotliImg != null) {
             Glide.with(this)
@@ -59,21 +79,17 @@ class FloatingDialogService : Service() {
                 .into(foodPotliImg)
         }
 
-        val rentPotliImg : ImageView? = floatingView?.findViewById<ImageView>(R.id.rent_potli_img)
-
         if (rentPotliImg != null) {
             Glide.with(this)
                 .load(R.drawable.rent_potli)
                 .into(rentPotliImg)
         }
-        val travelPotliImg : ImageView? = floatingView?.findViewById<ImageView>(R.id.travel_potli_img)
 
         if (travelPotliImg != null) {
             Glide.with(this)
                 .load(R.drawable.travel_potli)
                 .into(travelPotliImg)
         }
-        val addPotliImg : ImageView? = floatingView?.findViewById<ImageView>(R.id.add_potli_img)
 
         if (addPotliImg != null) {
             Glide.with(this)
@@ -83,45 +99,47 @@ class FloatingDialogService : Service() {
 
         foodPotliImg?.setOnClickListener{
             Log.v("Click","Yes")
-            if (floatingView != null) {
-                windowManager?.removeView(floatingView)
-                floatingView = null
-            }
+            onImageClick(amount, R.id.food_potli_img)
         }
         rentPotliImg?.setOnClickListener{
             Log.v("Click","Yes")
-            if (floatingView != null) {
-                windowManager?.removeView(floatingView)
-                floatingView = null
-            }
+            onImageClick(amount, R.id.rent_potli_img)
         }
         travelPotliImg?.setOnClickListener{
             Log.v("Click","Yes")
-            if (floatingView != null) {
-                windowManager?.removeView(floatingView)
-                floatingView = null
-            }
+            onImageClick(amount, R.id.travel_potli_img)
         }
         addPotliImg?.setOnClickListener{
             Log.v("Click","Yes")
-            if (floatingView != null) {
-                windowManager?.removeView(floatingView)
-                floatingView = null
-            }
+            onImageClick(amount, R.id.add_potli_img)
         }
     }
 
-    private fun stopFloatingDialogService() {
-        val closeDialogIntent = Intent(this, FloatingDialogService::class.java)
-        stopService(closeDialogIntent)
+    fun setTransactionCallback(callback: TransactionCallback) {
+        transactionCallback = callback
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    private fun updateTransactionAmount(amount: Double, imageId: Int) {
+        transactionCallback?.onTransactionAmountUpdated(amount, imageId)
+    }
+
+
+    private fun onImageClick(amount: Double, imageId: Int) {
         if (floatingView != null) {
             windowManager?.removeView(floatingView)
             floatingView = null
         }
-        stopFloatingDialogService()
+        updateTransactionAmount(amount, imageId)
+        stopSelf()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.v("Destroyed","Yes")
+        if (floatingView != null) {
+            windowManager?.removeView(floatingView)
+            floatingView = null
+        }
+        stopSelf()
     }
 }

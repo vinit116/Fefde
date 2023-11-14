@@ -23,7 +23,6 @@ class LoginActivity : AppCompatActivity() {
     private val app = App.create(APP_ID)
     private val user = app.currentUser
 
-    private lateinit var userName : String
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +30,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.login_page_email)
 
         actionBar?.hide()
-
-        userName = intent.getStringExtra("USER_NAME").toString()
 
         val rememberMeCheckbox = findViewById<CheckBox>(R.id.checkbox_remember_me)
 
@@ -91,7 +88,6 @@ class LoginActivity : AppCompatActivity() {
     }
     private fun startMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("USER_NAME", userName)
         startActivity(intent)
         finish()
     }
