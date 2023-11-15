@@ -13,18 +13,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import club.potli.util.Constants
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import io.realm.kotlin.mongodb.App
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-    private val app = App.create(Constants.APP_ID)
-    private val user = app.currentUser
 
     private lateinit var viewModel: AppViewModel
 
@@ -134,14 +127,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun logOut() {
-        CoroutineScope(Dispatchers.IO).launch {
-            user?.logOut()
-        }
         Firebase.auth.signOut()
     }
 
     private fun startLoginActivity() {
-        val intent = Intent(this, LoginActivity::class.java)
+        val intent = Intent(this, LoginOTP::class.java)
         startActivity(intent)
     }
 

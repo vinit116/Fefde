@@ -10,10 +10,8 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import club.potli.util.Constants
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
@@ -22,14 +20,10 @@ import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
-import com.google.firebase.ktx.Firebase
-import io.realm.kotlin.mongodb.App
 import java.util.concurrent.TimeUnit
 
 
 class LoginOTP : AppCompatActivity() {
-    private val app = App.create(Constants.APP_ID)
-    private val user = app.currentUser
 
     private var isVerificationInProgress = false
     private val auth = FirebaseAuth.getInstance()
@@ -62,12 +56,18 @@ class LoginOTP : AppCompatActivity() {
             // for instance if the the phone number format is not valid.
             Log.w("TAG", "onVerificationFailed", e)
 
-            if (e is FirebaseAuthInvalidCredentialsException) {
-                // Invalid request
-            } else if (e is FirebaseTooManyRequestsException) {
-                // The SMS quota for the project has been exceeded
-            } else if (e is FirebaseAuthMissingActivityForRecaptchaException) {
-                // reCAPTCHA verification attempted with null Activity
+            when (e) {
+                is FirebaseAuthInvalidCredentialsException -> {
+                    // Invalid request
+                }
+
+                is FirebaseTooManyRequestsException -> {
+                    // The SMS quota for the project has been exceeded
+                }
+
+                is FirebaseAuthMissingActivityForRecaptchaException -> {
+                    // reCAPTCHA verification attempted with null Activity
+                }
             }
 
             // Show a message and update the UI
@@ -93,7 +93,7 @@ class LoginOTP : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        if (isLoggedIn()) {
+        if (FirebaseAuth.getInstance().currentUser != null) {
             startMainActivity()
         } else if (isVerificationInProgress) {
             val phoneNumber = findViewById<EditText>(R.id.tenDigit).text.toString()
@@ -120,7 +120,6 @@ class LoginOTP : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("TAG", "signInWithCredential:success")
 
-                    val user = task.result?.user
                     startMainActivity()
                 } else {
                     Toast.makeText(
@@ -167,19 +166,10 @@ class LoginOTP : AppCompatActivity() {
             Log.v("Phone No", phoneNo)
             isVerificationInProgress = true
             startPhoneNumberVerification(phoneNo)
-            setLoggedInStatus(true)
         }
     }
 
-    private fun setLoggedInStatus(loggedIn: Boolean) {
-        val editor = sharedPreferences.edit()
-        editor.putBoolean("isLoggedIn", loggedIn)
-        editor.apply()
-    }
 
-    private fun isLoggedIn(): Boolean {
-        return sharedPreferences.getBoolean("isLoggedIn", false)
-    }
 
     private fun startOTPInput() {
         setContentView(R.layout.otp_input)
