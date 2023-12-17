@@ -94,6 +94,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:inputType="textPersonName"
+                    android:textColor="@color/black"
                     android:maxLines="1"
                     android:background="@drawable/rounded_rect"/>
 
@@ -124,6 +125,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:inputType="textEmailAddress"
+                    android:textColor="@color/black"
                     android:maxLines="1"
                     android:background="@drawable/rounded_rect"/>
 
@@ -154,6 +156,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:inputType="textPassword"
+                    android:textColor="@color/black"
                     android:maxLines="1"
                     android:background="@drawable/rounded_rect"/>
 
@@ -177,14 +180,16 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/rounded_rect"/>
 
-                <EditText
+                <TextView
+                    android:id="@+id/dob"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:inputType="date"
-                    android:maxLines="1"
-                    android:background="@drawable/rounded_rect"/>
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:background="@drawable/rounded_rect"
+                    app:drawableRightCompat="@drawable/calendar" />
 
             </FrameLayout>
 

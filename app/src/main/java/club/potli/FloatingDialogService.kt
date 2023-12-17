@@ -16,8 +16,6 @@ import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
 
 class FloatingDialogService : Service(){
-    private var transactionCallback: TransactionCallback? = null
-
     private var floatingView: RelativeLayout? = null
     private var windowManager: WindowManager? = null
 
@@ -115,13 +113,6 @@ class FloatingDialogService : Service(){
         }
     }
 
-    fun setTransactionCallback(callback: TransactionCallback) {
-        transactionCallback = callback
-    }
-
-    private fun updateTransactionAmount(amount: Double, imageId: Int) {
-        transactionCallback?.onTransactionAmountUpdated(amount, imageId)
-    }
 
 
     private fun onImageClick(amount: Double, imageId: Int) {
@@ -129,7 +120,6 @@ class FloatingDialogService : Service(){
             windowManager?.removeView(floatingView)
             floatingView = null
         }
-        updateTransactionAmount(amount, imageId)
         stopSelf()
     }
 

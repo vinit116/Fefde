@@ -1,8 +1,6 @@
 package club.potli
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,6 +10,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import club.potli.data.model.User
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
@@ -29,7 +28,7 @@ class LoginOTP : AppCompatActivity() {
     private val auth = FirebaseAuth.getInstance()
     private lateinit var storedVerificationId : String
     private lateinit var resendToken : PhoneAuthProvider.ForceResendingToken
-    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var phoneNo : String
 
     private lateinit var digit1: EditText
     private lateinit var digit2: EditText
@@ -70,7 +69,11 @@ class LoginOTP : AppCompatActivity() {
                 }
             }
 
-            // Show a message and update the UI
+            Toast.makeText(
+                applicationContext,
+                "Please try again."
+                ,Toast.LENGTH_SHORT
+            ).show()
         }
 
         override fun onCodeSent(
@@ -96,8 +99,8 @@ class LoginOTP : AppCompatActivity() {
         if (FirebaseAuth.getInstance().currentUser != null) {
             startMainActivity()
         } else if (isVerificationInProgress) {
-            val phoneNumber = findViewById<EditText>(R.id.tenDigit).text.toString()
-            startPhoneNumberVerification(phoneNumber)
+            val phoneNo = findViewById<EditText>(R.id.tenDigit).text.toString()
+            startPhoneNumberVerification(phoneNo)
         }
     }
 
@@ -117,9 +120,19 @@ class LoginOTP : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    val viewModel = AppViewModel()
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("TAG", "signInWithCredential:success")
 
+                    val firebaseUser = auth.currentUser
+                    val uid = firebaseUser?.uid
+
+                    uid?.let {
+                        val newUser = User().apply {
+                            phoneNumber = phoneNo
+                        }
+                        viewModel.saveUserToDatabase(uid, newUser)
+                    }
                     startMainActivity()
                 } else {
                     Toast.makeText(
@@ -155,8 +168,6 @@ class LoginOTP : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_page_phoneno)
 
-        sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-        
 
         val getOTP = findViewById<ImageButton>(R.id.get_otp_button)
 

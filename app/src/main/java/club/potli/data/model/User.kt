@@ -1,16 +1,16 @@
 package club.potli.data.model
 
-import io.realm.kotlin.types.RealmObject
-import io.realm.kotlin.types.annotations.PrimaryKey
-import org.mongodb.kbson.ObjectId
-import java.text.DateFormat
-import java.util.Date
+class User{
+    var username: String? = null
+    var email: String? = null
+    var dateOfBirth: String? = null
+    var phoneNumber: String? = null
+    var monthlyBalance: String? = null
+    var potlis: HashMap<String, Potli> = HashMap()
+}
 
-open class User() : RealmObject{
-    @PrimaryKey
-    var _id: ObjectId = ObjectId.invoke()
-    var owner_id: String = ""
-    var email: String = ""
-    var password: String = ""
+class Potli {
+    var limit: Double? = null
+    var spent: Double? = null
 }
 
