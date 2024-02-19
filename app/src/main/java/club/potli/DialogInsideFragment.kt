@@ -42,6 +42,7 @@ class DialogInsideFragment : DialogFragment() {
         val potliNameTextView: TextView = rootView.findViewById(R.id.active_potli_name)
         val limitEditText: EditText = rootView.findViewById(R.id.limit_amt)
         val spentTextView: TextView = rootView.findViewById(R.id.spent_amt)
+        val closeTextView: TextView = rootView.findViewById(R.id.dialog_inside_close)
 
         val userId = arguments?.getString(ARG_USER_ID)
         val potliName = arguments?.getString(ARG_POTLI_NAME)
@@ -60,8 +61,13 @@ class DialogInsideFragment : DialogFragment() {
                             val limit = potliRef.child("limit").getValue(Double::class.java)
                             val spent = potliRef.child("spent").getValue(Double::class.java)
 
-                            limitEditText.setText(limit?.toString())
-                            spentTextView.text = spent?.toString()
+                            if (limit == null || spent == null) {
+                                limitEditText.setText("0")
+                                spentTextView.text = "0"
+                            } else {
+                                limitEditText.setText(limit.toString())
+                                spentTextView.text = spent.toString()
+                            }
 
                             limitEditText.addTextChangedListener(object : TextWatcher {
                                 override fun beforeTextChanged(
@@ -86,7 +92,6 @@ class DialogInsideFragment : DialogFragment() {
                                         potliName.let { name ->
                                             val potli = Potli()
                                             potli.limit = limit
-                                            potli.spent = 0.0
 
                                             userId.let { uid ->
                                                 FirebaseDatabase.getInstance().reference.child("users")
@@ -121,6 +126,10 @@ class DialogInsideFragment : DialogFragment() {
                         // Handle onCancelled
                     }
                 })
+        }
+
+        closeTextView.setOnClickListener {
+            dismiss()
         }
         return rootView
     }

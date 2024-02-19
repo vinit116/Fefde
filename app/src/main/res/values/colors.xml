@@ -13,4 +13,5 @@
     <color name="blue">#2575ae</color>
     <color name="purple_shade1">#6570B4</color>
     <color name="update_bal_container">#d4f3fc</color>
+    <color name="warning">#FF3131</color>
 </resources>

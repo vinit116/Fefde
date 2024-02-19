@@ -10,16 +10,27 @@ import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.WindowManager
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import club.potli.data.model.Potli
+import club.potli.data.model.User
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class FloatingDialogService : Service(){
     private var floatingView: RelativeLayout? = null
     private var windowManager: WindowManager? = null
 
     private var amount: Double = 0.0
+
+    private val uid = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -43,7 +54,6 @@ class FloatingDialogService : Service(){
         } catch (e: WindowManager.BadTokenException){
             e.printStackTrace()
         }
-
         return START_STICKY
     }
 
@@ -51,8 +61,6 @@ class FloatingDialogService : Service(){
     private fun showFloatingView() {
         val inflater = LayoutInflater.from(this)
         floatingView = inflater.inflate(R.layout.dialog_box_outside, null) as RelativeLayout
-
-        Log.v("Floating Window","Opened")
 
         val layoutParams = WindowManager.LayoutParams(
             WindowManager.LayoutParams.WRAP_CONTENT,
@@ -95,32 +103,90 @@ class FloatingDialogService : Service(){
                 .into(addPotliImg)
         }
 
+
         foodPotliImg?.setOnClickListener{
-            Log.v("Click","Yes")
-            onImageClick(amount, R.id.food_potli_img)
+            onImageClick(amount, R.id.food_potli_layout)
+            Log.v("Food","Clicked")
+            Log.v("Amount","$amount")
         }
         rentPotliImg?.setOnClickListener{
-            Log.v("Click","Yes")
-            onImageClick(amount, R.id.rent_potli_img)
+            onImageClick(amount, R.id.rent_potli_layout)
         }
         travelPotliImg?.setOnClickListener{
-            Log.v("Click","Yes")
-            onImageClick(amount, R.id.travel_potli_img)
+            onImageClick(amount, R.id.travel_potli_layout)
         }
         addPotliImg?.setOnClickListener{
-            Log.v("Click","Yes")
-            onImageClick(amount, R.id.add_potli_img)
+            Toast.makeText(this,"Coming Soon!!",Toast.LENGTH_SHORT).show()
+            stopSelf()
         }
     }
 
+    private fun onImageClick(amount: Double, potliLayoutId: Int) {
+        val potliName = getPotliNameForLayoutId(potliLayoutId)
 
+        val databaseReference = FirebaseDatabase.getInstance().reference.child("users").child(uid)
 
-    private fun onImageClick(amount: Double, imageId: Int) {
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    val user = dataSnapshot.getValue(User::class.java)
+
+                    val potli = user?.potlis?.get(potliName)
+                    potli?.let {
+                        it.spent = it.spent?.plus(amount)
+                        user.potlis[potliName] = it
+
+                        // Save updated user data to the database
+                        dataSnapshot.ref.setValue(user)
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    Toast.makeText(applicationContext,"You spent Rs. $amount on $potliName ",Toast.LENGTH_SHORT).show()
+                                } else {
+                                    Toast.makeText(applicationContext,"Error!!",Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                    } ?: run {
+                        val newPotli = Potli()
+                        newPotli.limit = 0.0
+                        newPotli.spent = amount
+                        user?.potlis?.put(potliName, newPotli)
+
+                        // Save updated user data to the database
+                        dataSnapshot.ref.setValue(user)
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    Toast.makeText(applicationContext,"Initialized and spent Rs. $amount on $potliName ",Toast.LENGTH_SHORT).show()
+                                } else {
+                                    Toast.makeText(applicationContext,"Error!!",Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle onCancelled
+            }
+        })
+
+        stopFloatingView()
+    }
+
+    private fun stopFloatingView() {
         if (floatingView != null) {
             windowManager?.removeView(floatingView)
             floatingView = null
         }
         stopSelf()
+    }
+    private fun getPotliNameForLayoutId(layoutId: Int): String {
+        return when (layoutId) {
+            R.id.food_potli_layout -> "Food"
+            R.id.rent_potli_layout -> "Rent"
+            R.id.travel_potli_layout -> "Travel"
+            R.id.add_potli_layout -> "Add"
+            else -> ""
+        }
     }
 
     override fun onDestroy() {

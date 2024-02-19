@@ -30,11 +30,11 @@
             android:layout_gravity="center">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="15dp"
-                android:layout_marginStart="0dp"
+                android:layout_marginStart="50dp"
                 android:layout_marginEnd="30dp"
                 android:gravity="center_horizontal">
 
@@ -54,16 +54,16 @@
                     android:textColor="@color/white"
                     android:text="0"
                     android:textStyle="bold"
-                    android:layout_marginStart="100dp"/>
+                    android:layout_marginStart="110dp"/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="25dp"
-                android:layout_marginStart="0dp"
+                android:layout_marginStart="50dp"
                 android:layout_marginEnd="30dp"
                 android:gravity="center_horizontal">
 
@@ -76,6 +76,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
+                    android:focusable="false"
                     android:id="@+id/spent_amt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -83,11 +84,29 @@
                     android:textColor="@color/white"
                     android:text="0"
                     android:textStyle="bold"
-                    android:layout_marginStart="97dp"/>
+                    android:layout_marginStart="105dp"/>
 
             </LinearLayout>
 
         </LinearLayout>
+
+        <View
+            android:id="@+id/margin"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/dialog_inside_close"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Close"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 

@@ -40,14 +40,13 @@
         <activity
             android:name=".LoginActivity"
             android:exported="true">
-
-        </activity>
-        <activity android:name=".LoginOTP"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".LoginOTP"
+            android:exported="true">
         </activity>
         <service android:name=".FloatingDialogService"
             android:enabled="true"

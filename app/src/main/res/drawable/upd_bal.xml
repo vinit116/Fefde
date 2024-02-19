@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <!-- Fill color for the oval shape -->
+    <solid android:color="#4C4AEF" />
+
+
+    <!-- Optionally, you can add padding to the oval -->
+    <padding
+        android:left="5dp"
+        android:top="5dp"
+        android:right="5dp"
+        android:bottom="5dp" />
+
+    <!-- Optionally, you can add size dimensions -->
+    <size
+        android:width="50dp"
+        android:height="50dp" />
+
+</shape>

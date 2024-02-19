@@ -4,5 +4,13 @@
     <item name="android:background">#f4f6ff</item>
     <item name="itemIconTint">@color/black</item>
 </style>
+
+    <style name="skip">
+        <item name="android:textSize">20sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textColor">#FF7422</item>
+    </style>
+
 </resources>
+
 

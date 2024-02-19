@@ -1,61 +1,562 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
-    android:background="@color/black"
+    android:background="#0c0c0c"
     tools:context=".RewardsFragment">
 
-    <FrameLayout
-        android:id="@+id/profile_photo_container"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/H15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="340dp">
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
 
-        <ImageView
-            android:id="@+id/profile_image"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/baseline_person_24"
-            android:background="@drawable/circle_shape"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/H25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
 
-    </FrameLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/H30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/H35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/H40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/H50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/H75"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottom_separator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.92" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/V05"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/V25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/V50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/V75"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/V95"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
 
 
-    <FrameLayout
+    <TextView
+        android:id="@+id/update_bal_txt"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_height="wrap_content"
+        android:text="Rewards"
+        android:letterSpacing=".02"
+        android:textColor="@color/white"
+        android:gravity="start"
+        android:textSize="26sp"
+        android:layout_marginTop="26dp"
+        android:textStyle="bold"/>
+
+    <View
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/H15"
+        android:layout_marginTop="18dp"
+        android:id="@+id/separator"
         android:layout_width="match_parent"
-        android:layout_height="420dp"
-        android:layout_above="@id/margin">
+        android:layout_height="1dp"
+        android:background="#272727"
+        />
+
+    <ImageView
+        android:id="@+id/membership_header"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/separator"
+        app:layout_constraintLeft_toLeftOf="@id/V05"
+        app:layout_constraintRight_toRightOf="@id/V95"
+        app:layout_constraintBottom_toBottomOf="@id/H30"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/membership_header"/>
+
+    <TextView
+        android:id="@+id/mem_pts_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/membership_header"
+        app:layout_constraintTop_toTopOf="@id/membership_header"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="20dp"
+        android:text="Membership Points"
+        android:textStyle="bold"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/mem_pts_txt"
+        app:layout_constraintTop_toBottomOf="@id/mem_pts_txt"
+        android:text="John Doe"
+        android:textSize="20sp"/>
+
+    <ImageView
+        android:id="@+id/mem_crown_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/circle_black"
+        app:layout_constraintRight_toRightOf="@id/V95"
+        app:layout_constraintTop_toTopOf="@id/mem_pts_txt"
+        app:layout_constraintLeft_toLeftOf="@id/V75"
+        app:layout_constraintBottom_toBottomOf="@id/userName"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/crown"
+        app:layout_constraintLeft_toLeftOf="@id/mem_crown_frame"
+        app:layout_constraintRight_toRightOf="@id/mem_crown_frame"
+        app:layout_constraintTop_toTopOf="@id/mem_crown_frame"
+        app:layout_constraintBottom_toBottomOf="@id/mem_crown_frame"/>
+
+    <TextView
+        android:id="@+id/you_are_having_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/mem_pts_txt"
+        app:layout_constraintTop_toTopOf="@id/H25"
+        android:text="You are having"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/streaks_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="@id/mem_crown_frame"
+        app:layout_constraintTop_toTopOf="@id/H25"
+        android:text="streaks"
+        android:textStyle="bold"
+        android:textColor="#4c4aef"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/progress_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toLeftOf="@id/streaks_txt"
+        app:layout_constraintTop_toTopOf="@id/H25"
+        android:text="0"
+        android:layout_marginEnd="8dp"
+        android:textStyle="bold"
+        android:textColor="#4c4aef"
+        android:textSize="16sp"/>
+
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/membership_footer"
+        app:layout_constraintLeft_toLeftOf="@id/V05"
+        app:layout_constraintRight_toRightOf="@id/V95"
+        app:layout_constraintTop_toBottomOf="@id/H30"
+        app:layout_constraintBottom_toBottomOf="@id/H35"/>
+
+    <TextView
+        android:id="@+id/footer_streaks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="14sp"
+        android:textColor="#b4b4b4"
+        app:layout_constraintLeft_toLeftOf="@id/you_are_having_txt"
+        app:layout_constraintTop_toTopOf="@id/H30"
+        app:layout_constraintBottom_toBottomOf="@id/H35"/>
+
+    <TextView
+        android:id="@+id/mstbt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="more streaks to become the"
+        android:textColor="#b4b4b4"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toRightOf="@id/footer_streaks"
+        app:layout_constraintTop_toTopOf="@id/footer_streaks"
+        app:layout_constraintBottom_toBottomOf="@id/footer_streaks"
+        android:layout_marginStart="6dp"/>
+
+    <TextView
+        android:id="@+id/reward_name_placeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Budgeting Beginner"
+        android:textColor="#b4b4b4"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toRightOf="@id/mstbt"
+        app:layout_constraintTop_toTopOf="@id/footer_streaks"
+        app:layout_constraintBottom_toBottomOf="@id/footer_streaks"
+        android:layout_marginStart="5dp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="@id/V05"
+        app:layout_constraintRight_toRightOf="@id/V95"
+        app:layout_constraintTop_toTopOf="@id/H40"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_separator"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/H1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.33333333333333" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/H2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.666666666666" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/V1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.2" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/V2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
 
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#f4f6ff" />
+            android:id="@+id/master_planner_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/input_off"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/H1"
+            android:layout_marginVertical="15dp"/>
+
+        <ImageView
+            android:id="@+id/master_crown_holder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/master_planner_layout"
+            app:layout_constraintRight_toRightOf="@id/V1"
+            app:layout_constraintTop_toTopOf="@id/master_planner_layout"
+            android:src="@drawable/circle_white"
+            android:layout_marginTop="15dp"/>
+
+        <ImageView
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/gold_crown"
+            app:layout_constraintLeft_toLeftOf="@id/master_crown_holder"
+            app:layout_constraintRight_toRightOf="@id/master_crown_holder"
+            app:layout_constraintTop_toTopOf="@id/master_crown_holder"
+            app:layout_constraintBottom_toBottomOf="@id/master_crown_holder"/>
+
+        <TextView
+            android:id="@+id/master_planner_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/V1"
+            app:layout_constraintTop_toTopOf="@id/master_crown_holder"
+            android:text="Master Planner"
+            android:textColor="#FFFFFF"
+            android:layout_marginStart="10dp"
+            android:textStyle="bold"
+            android:fontFamily="serif"
+            android:textSize="22sp"/>
+
+        <ProgressBar
+            android:id="@+id/master_planner_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/master_planner_txt"
+            app:layout_constraintRight_toRightOf="@id/V2"
+            app:layout_constraintTop_toBottomOf="@id/master_planner_txt"
+            android:layout_marginTop="20dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:indeterminate="false"
+            android:progressBackgroundTint="#FFFFFF"
+            android:max="1000"
+            android:progress="0"
+            android:progressTint="#4c4aef"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="2"
-            android:text="Coming\n Soon!"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            android:textSize="50dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
+            app:layout_constraintLeft_toLeftOf="@id/master_planner_txt"
+            app:layout_constraintTop_toBottomOf="@id/master_planner_bar"
+            android:text="Rewards coming soon"
+            android:textSize="14sp"
+            android:textColor="#b4b4b4"/>
 
-    </FrameLayout>
+        <TextView
+            android:id="@+id/mp_stg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toLeftOf="@id/streaks_tg_txt"
+            app:layout_constraintTop_toBottomOf="@id/master_planner_bar"
+            android:text="0"
+            android:textColor="#d8d8d8"
+            android:layout_marginEnd="6dp"/>
 
-    <View
-        android:id="@+id/margin"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#33443c"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dp"/>
+        <TextView
+            android:id="@+id/streaks_tg_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="@id/V2"
+            app:layout_constraintTop_toBottomOf="@id/master_planner_bar"
+            android:text="streaks to go"
+            android:textSize="14sp"
+            android:textColor="#d8d8d8"/>
 
-</RelativeLayout>
+
+        <ImageView
+            android:id="@+id/efficient_budgeter_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/input_off"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/H1"
+            app:layout_constraintBottom_toBottomOf="@id/H2"
+            android:layout_marginVertical="15dp"/>
+
+        <ImageView
+            android:id="@+id/efficient_crown_holder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/efficient_budgeter_layout"
+            app:layout_constraintRight_toRightOf="@id/V1"
+            app:layout_constraintTop_toTopOf="@id/efficient_budgeter_layout"
+            android:src="@drawable/circle_white"
+            android:layout_marginTop="15dp"/>
+
+        <ImageView
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/silver_crown"
+            app:layout_constraintLeft_toLeftOf="@id/efficient_crown_holder"
+            app:layout_constraintRight_toRightOf="@id/efficient_crown_holder"
+            app:layout_constraintTop_toTopOf="@id/efficient_crown_holder"
+            app:layout_constraintBottom_toBottomOf="@id/efficient_crown_holder"/>
+
+        <TextView
+            android:id="@+id/efficient_budgeter_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/V1"
+            app:layout_constraintTop_toTopOf="@id/efficient_crown_holder"
+            app:layout_constraintLeft_toLeftOf="@id/master_planner_txt"
+            android:text="Efficient Budgeter"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:fontFamily="serif"
+            android:textSize="22sp"/>
+
+        <ProgressBar
+            android:id="@+id/efficient_budgeter_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/efficient_budgeter_txt"
+            app:layout_constraintRight_toRightOf="@id/V2"
+            app:layout_constraintTop_toBottomOf="@id/efficient_budgeter_txt"
+            android:layout_marginTop="20dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:indeterminate="false"
+            android:progressBackgroundTint="#FFFFFF"
+            android:max="500"
+            android:progress="0"
+            android:progressTint="#4c4aef"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/efficient_budgeter_txt"
+            app:layout_constraintTop_toBottomOf="@id/efficient_budgeter_bar"
+            android:text="Rewards coming soon"
+            android:textSize="14sp"
+            android:textColor="#b4b4b4"/>
+
+        <TextView
+            android:id="@+id/eb_stg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toLeftOf="@id/streaks_tg_txt"
+            app:layout_constraintTop_toBottomOf="@id/efficient_budgeter_bar"
+            android:text="0"
+            android:textColor="#d8d8d8"
+            android:layout_marginEnd="6dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="@id/V2"
+            app:layout_constraintTop_toBottomOf="@id/efficient_budgeter_bar"
+            android:text="streaks to go"
+            android:textSize="14sp"
+            android:textColor="#d8d8d8"/>
+
+        <ImageView
+            android:id="@+id/budgeting_beginner_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/input_off"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/H2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginVertical="15dp"/>
+
+        <ImageView
+            android:id="@+id/beginner_crown_holder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/budgeting_beginner_layout"
+            app:layout_constraintRight_toRightOf="@id/V1"
+            app:layout_constraintTop_toTopOf="@id/budgeting_beginner_layout"
+            android:src="@drawable/circle_white"
+            android:layout_marginTop="15dp"/>
+
+        <ImageView
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/bronze_crown"
+            app:layout_constraintLeft_toLeftOf="@id/beginner_crown_holder"
+            app:layout_constraintRight_toRightOf="@id/beginner_crown_holder"
+            app:layout_constraintTop_toTopOf="@id/beginner_crown_holder"
+            app:layout_constraintBottom_toBottomOf="@id/beginner_crown_holder"/>
+
+        <TextView
+            android:id="@+id/budgeting_beginner_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/V1"
+            app:layout_constraintTop_toTopOf="@id/beginner_crown_holder"
+            app:layout_constraintLeft_toLeftOf="@id/master_planner_txt"
+            android:text="Budgeting Beginner"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:fontFamily="serif"
+            android:textSize="22sp"/>
+
+        <ProgressBar
+            android:id="@+id/budgeting_beginner_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/budgeting_beginner_txt"
+            app:layout_constraintRight_toRightOf="@id/V2"
+            app:layout_constraintTop_toBottomOf="@id/budgeting_beginner_txt"
+            android:layout_marginTop="20dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:indeterminate="false"
+            android:progressBackgroundTint="#FFFFFF"
+            android:max="100"
+            android:progress="0"
+            android:progressTint="#4c4aef"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/budgeting_beginner_txt"
+            app:layout_constraintTop_toBottomOf="@id/budgeting_beginner_bar"
+            android:text="Rewards coming soon"
+            android:textSize="14sp"
+            android:textColor="#b4b4b4"/>
+
+        <TextView
+            android:id="@+id/bb_stg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toLeftOf="@id/streaks_tg_txt"
+            app:layout_constraintTop_toBottomOf="@id/budgeting_beginner_bar"
+            android:text="0"
+            android:textColor="#d8d8d8"
+            android:layout_marginEnd="6dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="@id/V2"
+            app:layout_constraintTop_toBottomOf="@id/budgeting_beginner_bar"
+            android:text="streaks to go"
+            android:textSize="14sp"
+            android:textColor="#d8d8d8"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

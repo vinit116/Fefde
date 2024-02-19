@@ -10,7 +10,7 @@ class User{
 }
 
 class Potli {
-    var limit: Double? = null
-    var spent: Double? = null
+    var limit: Double? = 0.0
+    var spent: Double? = 0.0
 }
 

@@ -7,7 +7,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.EditText
-import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import club.potli.data.model.User
@@ -19,11 +19,12 @@ import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.database.ValueEventListener
 import java.util.concurrent.TimeUnit
 
 
 class LoginOTP : AppCompatActivity() {
-
+    private val viewModel = AppViewModel()
     private var isVerificationInProgress = false
     private val auth = FirebaseAuth.getInstance()
     private lateinit var storedVerificationId : String
@@ -120,20 +121,23 @@ class LoginOTP : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val viewModel = AppViewModel()
+
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("TAG", "signInWithCredential:success")
 
                     val firebaseUser = auth.currentUser
                     val uid = firebaseUser?.uid
 
-                    uid?.let {
-                        val newUser = User().apply {
-                            phoneNumber = phoneNo
+                    uid?.let {userId ->
+                        viewModel.fetchUserDataFromFirebase(userId)
+                        viewModel.user.observe(this) { user ->
+                            if (user != null) {
+                                startMainActivity()
+                            } else {
+                                startMainActivity()
+                            }
                         }
-                        viewModel.saveUserToDatabase(uid, newUser)
                     }
-                    startMainActivity()
                 } else {
                     Toast.makeText(
                         applicationContext,
@@ -168,19 +172,26 @@ class LoginOTP : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_page_phoneno)
 
+        val currentUser = FirebaseAuth.getInstance().currentUser
 
-        val getOTP = findViewById<ImageButton>(R.id.get_otp_button)
-
-
-        getOTP.setOnClickListener {
-            val phoneNo = findViewById<EditText>(R.id.tenDigit).text.toString()
-            Log.v("Phone No", phoneNo)
-            isVerificationInProgress = true
-            startPhoneNumberVerification(phoneNo)
+        if (currentUser != null){
+            startMainActivity()
+        } else {
+            startMainActivity()
+//            val getOTP = findViewById<TextView>(R.id.get_otp_button)
+//
+//            getOTP.setOnClickListener {
+//                val phoneNo = findViewById<EditText>(R.id.tenDigit).text.toString()
+//                Log.v("Phone No", phoneNo)
+//                isVerificationInProgress = true
+//                startPhoneNumberVerification(phoneNo)
+//            }
         }
     }
 
-
+    private fun additionalInfo(){
+        startMainActivity()
+    }
 
     private fun startOTPInput() {
         setContentView(R.layout.otp_input)
@@ -268,11 +279,6 @@ class LoginOTP : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
-    }
-
-    fun useEmailInsteadClick(view: View) {
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
     }
 }
 

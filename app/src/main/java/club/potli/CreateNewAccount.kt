@@ -88,7 +88,6 @@ class CreateNewAccount : AppCompatActivity() {
                             }
                             startLoginActivity()
                         } else {
-                            // User creation failed
                             Log.w("User", "createUserWithEmail:failure")
                             Toast.makeText(
                                 applicationContext,

@@ -4,11 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.FrameLayout
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -19,12 +21,9 @@ import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: AppViewModel
-
     companion object {
         private const val SMS_PERMISSIONS_CODE = 69
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,27 +32,14 @@ class MainActivity : AppCompatActivity() {
 
         if (!Settings.canDrawOverlays(this)){
             requestOverlayPermission()
+        } else{
+            checkAndRequestSMSPermissions()
         }
 
 
-        viewModel = ViewModelProvider(this)[AppViewModel::class.java]
 
-
-        val readSmsPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_SMS)
-        val receiveSmsPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECEIVE_SMS)
-        val profileBtn = findViewById<FrameLayout>(R.id.profile_photo_container)
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
-        if (readSmsPermission == PackageManager.PERMISSION_GRANTED && receiveSmsPermission == PackageManager.PERMISSION_GRANTED){
-            loadFragment(HomeFragment())
-            SmsBackgroundService()
-        } else {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(android.Manifest.permission.READ_SMS, android.Manifest.permission.RECEIVE_SMS),
-                SMS_PERMISSIONS_CODE
-            )
-        }
 
         bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
@@ -78,10 +64,21 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
 
-        profileBtn.setOnClickListener {
-            logOut()
-            startLoginActivity()
+    private fun checkAndRequestSMSPermissions() {
+        val readSmsPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_SMS)
+        val receiveSmsPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECEIVE_SMS)
+
+        if (readSmsPermission == PackageManager.PERMISSION_GRANTED && receiveSmsPermission == PackageManager.PERMISSION_GRANTED){
+            loadFragment(HomeFragment())
+            SmsBackgroundService()
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.READ_SMS, android.Manifest.permission.RECEIVE_SMS),
+                SMS_PERMISSIONS_CODE
+            )
         }
     }
 
@@ -131,7 +128,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startLoginActivity() {
-        val intent = Intent(this, LoginOTP::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
 

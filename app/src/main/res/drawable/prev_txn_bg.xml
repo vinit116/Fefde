@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="348dp"
+    android:height="89dp"
+    android:viewportWidth="348"
+    android:viewportHeight="89">
+
+    <solid android:color="#272727" />
+    <corners android:radius="20dp" /> <!-- Adjust the radius for rounded corners -->
+
+    <stroke
+        android:width="2dp"
+        android:color="#000000" />
+</shape>
